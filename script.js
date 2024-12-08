@@ -1,3 +1,4 @@
+// 変数宣言
 let mode = null; // "cash" or "cashless"
 let money = 0; 
 const loan = 100000; 
@@ -19,7 +20,7 @@ const OTHER_COST = 2000;
 let controlsElement, statusElement, selectedInfoElement, historyElement;
 let turnHistory = [];
 
-// お米4000円
+// 材料リスト
 const ingredients = [
     {name:"お米(4000円)", price:4000},
     {name:"牛肉 国産(3000円)", price:3000},
@@ -78,12 +79,18 @@ const economicEvents = [
     {name:"SNSでバズる", desc:"評判UPで客増", effect: () => {return {salesMod:20};}}
 ];
 
+// ★ここでshowStatus関数を定義する★
+function showStatus(msg) {
+    let dispMoney = showMoney ? `残金: ${money}円` : "残金: ???円";
+    statusElement.textContent = dispMoney + " | " + msg;
+}
+
 window.onload = () => {
     statusElement = document.getElementById("status");
     controlsElement = document.getElementById("controls");
     selectedInfoElement = document.getElementById("selected-info");
     historyElement = document.getElementById("history");
-    initGame();
+    initGame(); // showStatusはここで呼ばれるので、先にshowStatusを定義しておくことが重要
 };
 
 function initGame() {
@@ -476,7 +483,7 @@ function getEconomicEvent() {
 }
 
 function showEventDesc(txt) {
-    alert(txt);
+    alert(txt); // alertで詳細を表示
 }
 
 function createButton(label, onClick) {
